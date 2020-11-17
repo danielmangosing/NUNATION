@@ -1,0 +1,215 @@
+<html lang="en">
+<head>
+		<title>NUNATION</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<link type="text/css" rel="stylesheet" href="main.css">
+		<style>
+			#blocker {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0,0,0,0.5);
+			}
+
+			#instructions {
+				width: 100%;
+				height: 100%;
+
+				display: -webkit-box;
+				display: -moz-box;
+				display: box;
+
+				-webkit-box-orient: horizontal;
+				-moz-box-orient: horizontal;
+				box-orient: horizontal;
+
+				-webkit-box-pack: center;
+				-moz-box-pack: center;
+				box-pack: center;
+
+				-webkit-box-align: center;
+				-moz-box-align: center;
+				box-align: center;
+
+				color: #ffffff;
+				text-align: center;
+				font-family: Arial;
+				font-size: 14px;
+				line-height: 24px;
+
+				cursor: pointer;
+			}
+		</style>
+
+
+	</head>
+<body>
+
+	<div class="section-video"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Z3uNDhnRdug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
+
+      <video muted loop playsinline autoplay hidden crossorigin="anonymous" id="videotex">
+        <source src="assets/nunation_videotex.mp4" type="video/mp4">
+      </video>
+      <video muted loop playsinline autoplay hidden crossorigin="anonymous" id="bgvideotex">
+        <source src="assets/index_bg.mp4" type="video/mp4">
+      </video>
+
+  <script type="module">
+
+  			import * as THREE from './build/three.module.js';
+
+        import { OrbitControls } from './js/OrbitControls.js';
+        import { FBXLoader } from './js/FBXLoader.js';
+        import { EffectComposer } from './postprocessing/EffectComposer.js';
+		  	import { RenderPass } from './postprocessing/RenderPass.js';
+			  import { UnrealBloomPass } from './postprocessing/UnrealBloomPass.js';
+
+        var container, controls;
+        var video, nunationVideo, bgvideo, nunationbgVideo, nunationMat;
+        var camera, scene, renderer, light;
+        var composer, renderer;
+
+        var params = {
+          exposure: 0,
+          bloomStrength: 0.4,
+          bloomThreshold: 0.6,
+          bloomRadius: 0.5
+        };
+
+        var clock = new THREE.Clock();
+        var nunationLogo;
+
+
+
+        init();
+        animate();
+
+        function init() {
+          container = document.createElement('div');
+          document.body.appendChild(container);
+
+          renderer = new THREE.WebGLRenderer({antialias:true});
+          renderer.setPixelRatio(window.devicePixelRatio);
+          renderer.setSize(window.innerWidth,window.innerHeight);
+          renderer.toneMapping = THREE.LinearToneMapping;
+          container.appendChild(renderer.domElement);
+
+
+          //camera
+          camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
+          camera.position.set(0,-150,600);
+          camera.rotation.x = .25;
+
+          scene = new THREE.Scene();
+
+          //LIGHTS
+          light = new THREE.HemisphereLight(0xffffff,0x444444);
+          light.position.set(0,200,0);
+          scene.add(light);
+
+            light = new THREE.DirectionalLight(0xffffff);
+            light.position.set(0,200,100);
+            light.castShadow = true;
+            scene.add(light);
+
+
+          //videotex
+           video = document.getElementById( 'videotex' );
+           nunationVideo = new THREE.VideoTexture( video );
+           video.play();
+
+           bgvideo = document.getElementById( 'bgvideotex' );
+           nunationbgVideo = new THREE.VideoTexture( bgvideo );
+           bgvideo.play();
+
+           nunationMat = new THREE.MeshStandardMaterial({
+          map: nunationVideo,
+          emissive: 0x5d5d5d,
+          emissiveMap: nunationVideo,
+          roughness: 0.1,
+          metalness: 0.6
+
+
+          });
+
+          scene.background = nunationbgVideo;
+
+          //postprocessing
+
+          var renderScene = new RenderPass (scene, camera);
+
+          var bloomPass = new UnrealBloomPass( new THREE.Vector2(window.innerWidth,window.innerHeight), 1.5,0.4,0.85);
+          bloomPass.threshold = params.bloomThreshold;
+          bloomPass.strength = params.bloomStrength;
+          bloomPass.radius = params.bloomRadius;
+
+          composer = new EffectComposer(renderer);
+          composer.addPass(renderScene);
+          composer.addPass(bloomPass);
+
+
+
+          //model
+          var loader = new FBXLoader();
+          loader.load('/assets/nunation.fbx', function(object){
+            nunationLogo = object;
+
+          object.traverse(function(child){
+              if(child.isMesh){
+                child.castShadow=true;
+                child.receiveShadow=true;
+                child.material = nunationMat;
+              }
+            } );
+
+            scene.add(nunationLogo);
+
+          });
+
+
+          //controls = new OrbitControls(camera, renderer.domElement);
+        //  controls.target.set(0,0,0);
+          //controls.update();
+
+          window.addEventListener('resize', onWindowResize, false);
+        }
+
+        function onWindowResize(){
+
+          camera.aspect = window.innerWidth /window.innerHeight;
+          camera.updateProjectionMatrix();
+
+          renderer.setSize(window.innerWidth, window.innerHeight);
+          composer.setSize(window.innerWidth, window.innerHeight);
+
+        }
+
+
+        function animate(){
+
+          setTimeout( function() {
+
+            requestAnimationFrame( animate );
+
+          }, 1000 / 24 );
+
+  //        requestAnimationFrame(animate);
+
+          if(nunationLogo) nunationLogo.rotation.y += 0.075;
+
+          const delta = clock.getDelta();
+
+          renderer.render(scene,camera);
+
+          composer.render();
+
+        }
+
+
+
+
+
+</script>
+</body>
+</html>
