@@ -46,7 +46,6 @@
 	</head>
 <body>
 
-	<div class="section-video"><iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Z3uNDhnRdug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>
 
       <video muted loop playsinline autoplay hidden crossorigin="anonymous" id="videotex">
         <source src="assets/nunation_videotex.mp4" type="video/mp4">
@@ -54,7 +53,7 @@
       <video muted loop playsinline autoplay hidden crossorigin="anonymous" id="bgvideotex">
         <source src="assets/index_bg.mp4" type="video/mp4">
       </video>
-
+<div class="threejs">
   <script type="module">
 
   			import * as THREE from './build/three.module.js';
@@ -98,8 +97,8 @@
 
           //camera
           camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
-          camera.position.set(0,-150,600);
-          camera.rotation.x = .25;
+          camera.position.set(0,100,1000);
+          camera.rotation.x = -0.3;
 
           scene = new THREE.Scene();
 
@@ -197,6 +196,7 @@
   //        requestAnimationFrame(animate);
 
           if(nunationLogo) nunationLogo.rotation.y += 0.075;
+					if(nunationLogo) nunationLogo.position.y = 200;
 
           const delta = clock.getDelta();
 
@@ -211,5 +211,9 @@
 
 
 </script>
+</div>
+<div class="section">
+	<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Z3uNDhnRdug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
 </body>
 </html>

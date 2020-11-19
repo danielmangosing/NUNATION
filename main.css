@@ -86,13 +86,28 @@ a, button, input, select {
 	padding: 10px;
 }
 
-#section-video {
+.section {
 	display: block;
-	z-index: 20;
-  top: 45%;
-	left: 50%;
-  width: 560px;
+	z-index: 2;
+  top: 40%;
+  width: 500px;
   height: 315px;
+	margin-left: 35%;
   position: absolute;
 	text-align: center;
+}
+
+@media only screen and (max-width: 600px) {
+	.section {
+		display: block;
+		z-index: 2;
+	  top: 40%;
+		margin-left: 2.5%;
+		margin-right:auto;
+	  position: absolute;
+		text-align: center;
+	}
+	.section iframe{
+		width:80%;
+	}
 }
