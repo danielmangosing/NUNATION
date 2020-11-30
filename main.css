@@ -86,28 +86,33 @@ a, button, input, select {
 	padding: 10px;
 }
 
-.section {
+.videoFrame {
 	display: block;
 	z-index: 2;
   top: 40%;
-  width: 500px;
-  height: 315px;
-	margin-left: 35%;
+	left: 50%;
+	margin-left: -280px;
   position: absolute;
 	text-align: center;
 }
 
+.videoFrame iframe{
+	width:560px;
+}
+
 @media only screen and (max-width: 600px) {
-	.section {
+
+	.videoFrame {
 		display: block;
 		z-index: 2;
 	  top: 40%;
-		margin-left:0;
-		margin-right:auto;
+		left: 50%;
+		margin-left: -225px;
 	  position: absolute;
 		text-align: center;
 	}
-	.section iframe{
-		width:80%;
+
+	.videoFrame iframe{
+		width:450px;
 	}
 }

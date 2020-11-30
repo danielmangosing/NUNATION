@@ -71,7 +71,7 @@
 
         var params = {
           exposure: 0,
-          bloomStrength: 0.8,
+          bloomStrength: 0.4,
           bloomThreshold: 0.6,
           bloomRadius: 0.5
         };
@@ -88,11 +88,9 @@
           container = document.createElement('div');
           document.body.appendChild(container);
 
-          renderer = new THREE.WebGLRenderer({
-						antialias:true,
-					});
-          renderer.setPixelRatio(window.devicePixelRatio/4);
-          renderer.setSize(window.innerWidth,window.innerHeight);
+          renderer = new THREE.WebGLRenderer({antialias:true});
+          renderer.setPixelRatio(window.devicePixelRatio);
+          renderer.setSize(window.innerWidth/2,window.innerHeight/2);
           renderer.toneMapping = THREE.LinearToneMapping;
           container.appendChild(renderer.domElement);
 
@@ -216,13 +214,6 @@
 </div>
 <div class="videoFrame">
 	<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Z3uNDhnRdug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	NUNATION COMING SOON
 </div>
 </body>
 </html>
