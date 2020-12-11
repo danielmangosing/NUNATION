@@ -9,6 +9,7 @@ body {
 	font-size: 13px;
 	line-height: 24px;
 	overscroll-behavior: none;
+
 }
 
 a {
@@ -89,9 +90,11 @@ a, button, input, select {
 .videoFrame {
 	display: block;
 	z-index: 2;
-  top: 40%;
+
 	left: 50%;
-	margin-left: -280px;
+
+	top: 75%;
+	margin-left:-100px;
   position: absolute;
 	text-align: center;
 }
@@ -100,14 +103,21 @@ a, button, input, select {
 	width:560px;
 }
 
+
+
+/* DIAGONALSCROLL */
+
+
+
+
 @media only screen and (max-width: 600px) {
 
 	.videoFrame {
 		display: block;
 		z-index: 2;
-	  top: 40%;
+	  top: 75%;
 		left: 50%;
-		margin-left: -225px;
+		margin-left: -60px;
 	  position: absolute;
 		text-align: center;
 	}

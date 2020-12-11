@@ -53,6 +53,11 @@
       <video muted loop playsinline autoplay hidden crossorigin="anonymous" id="bgvideotex">
         <source src="assets/index_bg.mp4" type="video/mp4">
       </video>
+			<a href="map.html">
+				<div style="width: 100vw; height: 100vh; background-color:transparent; z-index: 99; position: absolute; left:0; top:0;">
+
+				</div>
+			</a>
 <div class="threejs">
   <script type="module">
 
@@ -99,7 +104,7 @@
 
           //camera
           camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 2000);
-          camera.position.set(0,100,1000);
+          camera.position.set(0,0,400);
           camera.rotation.x = -0.3;
 
           scene = new THREE.Scene();
@@ -198,7 +203,7 @@
   //        requestAnimationFrame(animate);
 
           if(nunationLogo) nunationLogo.rotation.y += 0.075;
-					if(nunationLogo) nunationLogo.position.y = 200;
+					if(nunationLogo) nunationLogo.position.y = -70;
 
           const delta = clock.getDelta();
 
@@ -214,15 +219,15 @@
 
 </script>
 </div>
-<div class="videoFrame">
-	<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Z3uNDhnRdug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div class="videoFrame" style="">
+	<!-- <iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/Z3uNDhnRdug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
 	<br>
 	<br>
 	<br>
 	<br>
 	<br>
 	<br>
-	NUNATION COMING SOON
+CLICK TO ENTER
 </div>
 </body>
 </html>
